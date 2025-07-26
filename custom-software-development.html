@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom Software Development | True Logic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: #111;
+      color: #eee;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 0.75rem;
+      font-weight: 500;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .hero-content p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* Content Section */
+    .content {
+      max-width: 900px;
+      margin: 6rem auto 3rem;
+      padding: 2rem;
+    }
+    .content h2 {
+      color: var(--accent-color, #2563eb);
+      margin-bottom: 1rem;
+    }
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    /* Scroll Bar */
+    .scroll-bar-vertical {
+      position: fixed;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 60%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+    .scroll-thumb {
+      width: 100%;
+      background: var(--accent-color, #2563eb);
+      border-radius: 3px;
+      position: absolute;
+      top: 0;
+      height: 60px;
+    }
+    .scroll-percentage {
+      position: absolute;
+      left: 10px;
+      top: -20px;
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    /* Theme toggle & sound button */
+    #sound-toggle, #theme-toggle {
+      background: var(--accent-color, #2563eb);
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      color: white;
+    }
+    #sound-toggle svg, #theme-toggle svg {
+      width: 22px;
+      height: 22px;
+      stroke: white;
+    }
+
+    .right-controls {
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Sound -->
+  <audio id="bg-sound" autoplay loop>
+    <source src="Resources/morphed-metal-discharged-cinematic-trailer-sound-effects-124763.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Scroll Bar -->
+  <div class="scroll-bar-vertical">
+    <div class="scroll-thumb"></div>
+    <div class="scroll-percentage">0%</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">True Logic</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="custom-software.html">Custom Software</a>
+      <a href="mobile-app.html">Mobile Apps</a>
+      <a href="web-application.html">Web Apps</a>
+      <a href="cloud-computing.html">Cloud</a>
+    </div>
+    <div class="right-controls">
+      <button id="theme-toggle" title="Toggle Theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+        </svg>
+      </button>
+      <button id="sound-toggle" title="Mute/Unmute">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="3 9 9 9 13 5 13 19 9 15 3 15" />
+          <path d="M16.5 7.5a5 5 0 0 1 0 9" />
+          <path d="M19 4a9 9 0 0 1 0 16" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="Resources/256338.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-content">
+      <h1>Custom Software Development</h1>
+      <p>Building tailored, scalable, and powerful software to meet your business goals.</p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="content">
+    <h2>What We Offer</h2>
+    <p>
+      Our custom software solutions are designed to fit your unique business processes, ensuring that every feature and function aligns perfectly with your needs.
+    </p>
+    <p>
+      From concept to deployment, we handle the entire development lifecycle, providing you with robust, scalable, and efficient software solutions.
+    </p>
+    <p>
+      <strong>Services include:</strong> Requirement Analysis, UI/UX Design, Development, Testing, and Maintenance.
+    </p>
+  </section>
+
+  <script>
+    // Scroll Progress
+    const scrollThumb = document.querySelector('.scroll-thumb');
+    const scrollText = document.querySelector('.scroll-percentage');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const percent = docHeight ? (scrollTop / docHeight) * 100 : 0;
+      scrollThumb.style.top = (percent * 2.5) + 'px';
+      scrollText.textContent = Math.round(percent) + '%';
+    });
+
+    // Theme Toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+
+    // Sound Toggle
+    const soundBtn = document.getElementById('sound-toggle');
+    const audio = document.getElementById('bg-sound');
+    let playing = true;
+    soundBtn.addEventListener('click', () => {
+      if (playing) audio.pause();
+      else audio.play();
+      playing = !playing;
+    });
+  </script>
+</body>
+</html>
