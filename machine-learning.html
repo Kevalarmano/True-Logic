@@ -8,6 +8,57 @@
 <title>True Logic - Custom Software Development</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 <style>
+
+  /* Responsive fixes to make layout fit all devices */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.hero video.bg-video {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero .hero-content {
+  padding: 0 1rem;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem !important; /* smaller heading on tablets and phones */
+  }
+  .hero p, .hero .slogan {
+    font-size: 1rem !important;
+  }
+  nav {
+    padding: 12px 12px;
+    left: 32px; /* adjust nav left for scroll bar space */
+  }
+  body {
+    padding-left: 32px; /* adjust for scroll bar */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.5rem !important;
+  }
+  .btn.primary {
+    padding: 0.6rem 1.5rem !important;
+    font-size: 1rem !important;
+  }
+  #what-we-offer {
+    margin: 2rem 1rem 4rem 1rem !important;
+    padding: 0 0.5rem !important;
+  }
+  nav ul {
+    gap: 1rem !important;
+  }
+}
+
   :root {
     --accent-color: #2563eb;
     --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
