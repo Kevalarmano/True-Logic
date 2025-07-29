@@ -1,467 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>True Logic - Custom Software Development</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-    <style>
-      /* Responsive fixes to make layout fit all devices */
-      html, body {
-        max-width: 100%;
-        overflow-x: hidden;
-      }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>True Logic - Custom Software Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* Responsive fixes */
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  body {
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+    padding-left: 40px; /* for vertical scroll bar */
+  }
 
-      .hero video.bg-video {
-        max-width: 100%;
-        height: auto;
-      }
+  /* Colors */
+  :root {
+    --accent-color: #2563eb;
+    --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
+    --background-light: #fff;
+    --background-dark: #121212;
+    --text-light: #121212;
+    --text-dark: #eee;
+  }
 
-      .hero .hero-content {
-        padding: 0 1rem;
-        box-sizing: border-box;
-        max-width: 100%;
-      }
+  /* Dark mode */
+  body.dark {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+  }
 
-      @media (max-width: 768px) {
-        .hero h1 {
-          font-size: 2rem !important; /* smaller heading on tablets and phones */
-        }
-        .hero p, .hero .slogan {
-          font-size: 1rem !important;
-        }
-        nav {
-          padding: 12px 12px;
-          left: 32px; /* adjust nav left for scroll bar space */
-        }
-        body {
-          padding-left: 32px; /* adjust for scroll bar */
-        }
-      }
+  /* Vertical Scroll Bar Left */
+  .scroll-bar-vertical {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 100vh;
+    background: var(--accent-gradient);
+    border-radius: 0 12px 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+  }
+  .scroll-thumb {
+    position: relative;
+    width: 12px;
+    height: 60px;
+    background: #0008;
+    border-radius: 12px;
+    transition: background 0.3s;
+  }
+  .scroll-bar-vertical:hover .scroll-thumb {
+    background: var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-color);
+  }
+  .scroll-percentage {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(8px, -50%);
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .scroll-bar-vertical:hover .scroll-percentage {
+    opacity: 1;
+  }
 
-      @media (max-width: 480px) {
-        .hero h1 {
-          font-size: 1.5rem !important;
-        }
-        .btn.primary {
-          padding: 0.6rem 1.5rem !important;
-          font-size: 1rem !important;
-        }
-        #what-we-offer {
-          margin: 2rem 1rem 4rem 1rem !important;
-          padding: 0 0.5rem !important;
-        }
-        nav ul {
-          gap: 1rem !important;
-        }
-      }
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 40px;
+    right: 0;
+    background: var(--background-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    z-index: 1000;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  body.dark nav {
+    background: var(--background-dark);
+    box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+  }
 
-      :root {
-        --accent-color: #2563eb;
-        --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
-        --background-light: #fff;
-        --background-dark: #121212;
-        --text-light: #121212;
-        --text-dark: #eee;
-      }
+  nav .logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--accent-color);
+  }
 
-      /* Reset and base */
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: 'Montserrat', sans-serif;
-        background-color: var(--background-light);
-        color: var(--text-light);
-        transition: background-color 0.3s, color 0.3s;
-        padding-left: 40px; /* space for vertical scroll bar */
-      }
+  nav ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul.nav-links li a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: color 0.3s;
+  }
+  body.dark nav ul.nav-links li a {
+    color: var(--text-dark);
+  }
+  nav ul.nav-links li a.active,
+  nav ul.nav-links li a:hover {
+    color: var(--accent-color);
+  }
 
-      /* Vertical Scroll Bar Left */
-      .scroll-bar-vertical {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 24px;
-        height: 100vh;
-        background: var(--accent-gradient);
-        border-radius: 0 12px 12px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 9999;
-      }
-      .scroll-thumb {
-        position: relative;
-        width: 12px;
-        height: 60px;
-        background: #0008;
-        border-radius: 12px;
-        transition: background 0.3s;
-      }
-      .scroll-bar-vertical:hover .scroll-thumb {
-        background: var(--accent-color);
-        box-shadow: 0 0 15px var(--accent-color);
-      }
-      .scroll-percentage {
-        position: absolute;
-        left: 100%;
-        top: 50%;
-        transform: translate(8px, -50%);
-        background: rgba(0,0,0,0.75);
-        color: #fff;
-        font-size: 0.75rem;
-        padding: 2px 6px;
-        border-radius: 6px;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-      .scroll-bar-vertical:hover .scroll-percentage {
-        opacity: 1;
-      }
+  /* Nav icons container */
+  .nav-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
 
-      /* Navigation */
-      nav {
-        position: fixed;
-        top: 0;
-        left: 40px;
-        right: 0;
-        background: var(--background-light);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 24px;
-        box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-        z-index: 1000;
-        transition: background-color 0.3s, color 0.3s;
-      }
-      nav.dark {
-        background: var(--background-dark);
-        box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
-      }
+  /* Buttons inside nav */
+  nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.3s;
+    font-size: 1.2rem;
+    padding: 4px;
+  }
+  body.dark nav button {
+    color: var(--text-dark);
+  }
+  button:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
 
-      nav ul.nav-links {
-        list-style: none;
-        display: flex; /* Show nav on desktop */
-        gap: 1.5rem;
-        margin: 0;
-        padding: 0;
-      }
-      nav ul.nav-links li a {
-        text-decoration: none;
-        font-weight: 600;
-        color: var(--text-light);
-        transition: color 0.3s;
-      }
-      nav.dark ul.nav-links li a {
-        color: var(--text-dark);
-      }
-      nav ul.nav-links li a.active,
-      nav ul.nav-links li a:hover {
-        color: var(--accent-color);
-      }
+  /* Accent Dropdown */
+  .accent-dropdown {
+    position: relative;
+  }
+  .accent-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+  }
+  body.dark .accent-btn {
+    color: var(--text-dark);
+  }
+  .accent-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+  }
+  .accent-menu {
+    position: absolute;
+    top: 150%;
+    left: 0;
+    background: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+    display: none;
+    padding: 8px;
+    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 180px;
+    z-index: 1100;
+  }
+  body.dark .accent-menu {
+    background: var(--background-dark);
+  }
+  .accent-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    flex-shrink: 0;
+  }
+  .accent-circle:focus,
+  .accent-circle:hover {
+    border-color: var(--accent-color);
+  }
 
-      .nav-icons {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-      }
-      button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: var(--text-light);
-        transition: color 0.3s;
-      }
-      nav.dark button {
-        color: var(--text-dark);
-      }
-      button:focus {
-        outline: 2px solid var(--accent-color);
-        outline-offset: 2px;
-      }
+  /* Hamburger menu button (hidden desktop) */
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+  }
+  body.dark .menu-toggle {
+    color: var(--text-dark);
+  }
 
-      /* Accent Dropdown */
-      .accent-dropdown {
-        position: relative;
-      }
-      .accent-btn {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-weight: 600;
-        color: var(--text-light);
-      }
-      nav.dark .accent-btn {
-        color: var(--text-dark);
-      }
-      .accent-btn svg {
-        width: 18px;
-        height: 18px;
-        stroke: currentColor;
-      }
-      .accent-menu {
-        position: absolute;
-        top: 150%;
-        left: 0;
-        background: var(--background-light);
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
-        display: none;
-        padding: 8px;
-        gap: 8px;
-        display: flex;
-        flex-wrap: wrap;
-        width: 180px;
-        z-index: 1100;
-      }
-      nav.dark .accent-menu {
-        background: var(--background-dark);
-      }
-      .accent-circle {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: border-color 0.3s;
-        flex-shrink: 0;
-      }
-      .accent-circle:focus,
-      .accent-circle:hover {
-        border-color: var(--accent-color);
-      }
+  /* Responsive: Mobile Nav */
+  @media (max-width: 768px) {
+    nav ul.nav-links {
+      display: none;
+      position: fixed;
+      top: 56px; /* height of nav */
+      left: 40px;
+      right: 0;
+      background: var(--background-light);
+      flex-direction: column;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      z-index: 1001;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    body.dark nav ul.nav-links {
+      background: var(--background-dark);
+      box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+    }
+    nav ul.nav-links.show {
+      display: flex;
+      max-height: 300px; /* enough to show all links */
+    }
 
-      /* Hero Section */
-      .hero {
-        position: relative;
-        height: 80vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: var(--text-light);
-        overflow: hidden;
-        padding: 0 1rem;
-      }
-      .hero video.bg-video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transform: translate(-50%, -50%);
-        z-index: -1;
-        filter: brightness(0.6);
-      }
-      .hero h1 {
-        font-size: 4rem;
-        font-weight: 900;
-        letter-spacing: 2px;
-        margin: 0;
-        background: linear-gradient(90deg, var(--accent-color), #10b981);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        position: relative;
-        text-transform: uppercase;
-      }
-      .hero h1 span {
-        background: linear-gradient(90deg, #10b981, var(--accent-color));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .hero p {
-        font-size: 1.5rem;
-        margin-top: 1rem;
-        max-width: 600px;
-        color: var(--text-light);
-      }
-      nav.dark ~ .hero p {
-        color: var(--text-dark);
-      }
+    /* Show hamburger button on mobile */
+    .menu-toggle {
+      display: block;
+    }
+  }
 
-      /* Slogan */
-      .hero .slogan {
-        margin-top: 1rem;
-        font-style: italic;
-        font-weight: 600;
-        font-size: 1.3rem;
-        color: var(--accent-color);
-      }
+  /* Hero Section */
+  .hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    overflow: hidden;
+    padding: 0 1rem;
+    margin-top: 72px; /* push below fixed nav */
+  }
+  .hero video.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    filter: brightness(0.6);
+  }
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin: 0;
+    background: linear-gradient(90deg, var(--accent-color), #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #10b981, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    max-width: 600px;
+    color: var(--text-light);
+  }
+  body.dark .hero p {
+    color: var(--text-dark);
+  }
+  .hero .slogan {
+    margin-top: 1rem;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+  }
 
-      /* Buttons */
-      .btn.primary {
-        margin-top: 1.5rem;
-        padding: 0.9rem 2.2rem;
-        font-size: 1.1rem;
-        font-weight: 700;
-        background: var(--accent-gradient);
-        border: none;
-        border-radius: 30px;
-        color: white;
-        cursor: pointer;
-        box-shadow:
-          0 0 10px var(--accent-color),
-          0 0 25px var(--accent-color);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .btn.primary:hover,
-      .view-btn:hover {
-        transform: scale(1.05);
-        box-shadow:
-          0 0 20px var(--accent-color),
-          0 0 40px var(--accent-color);
-      }
+  /* Buttons */
+  .btn.primary {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    box-shadow:
+      0 0 10px var(--accent-color),
+      0 0 25px var(--accent-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn.primary:hover,
+  .view-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 20px var(--accent-color),
+      0 0 40px var(--accent-color);
+  }
 
-      /* What We Offer Section */
-      #what-we-offer {
-        max-width: 900px;
-        margin: 3rem auto 6rem;
-        padding: 0 1rem;
-        text-align: center;
-      }
-      #what-we-offer h2 {
-        font-size: 2.75rem;
-        margin-bottom: 1rem;
-        color: var(--accent-color);
-        text-shadow: 0 0 10px var(--accent-color);
-      }
-      #what-we-offer p {
-        font-size: 1.25rem;
-        color: #444;
-      }
-      nav.dark #what-we-offer p {
-        color: #ccc;
-      }
+  /* What We Offer Section */
+  #what-we-offer {
+    max-width: 900px;
+    margin: 3rem auto 6rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  #what-we-offer h2 {
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+  }
+  #what-we-offer p {
+    font-size: 1.25rem;
+    color: #444;
+  }
+  body.dark #what-we-offer p {
+    color: #ccc;
+  }
 
-      /* Footer */
-      footer {
-        text-align: center;
-        padding: 2rem 1rem;
-        font-size: 0.9rem;
-        color: #999;
-        border-top: 1px solid #eee;
-      }
-      nav.dark footer {
-        color: #777;
-        border-color: #333;
-      }
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    color: #999;
+    border-top: 1px solid #eee;
+  }
+  body.dark footer {
+    color: #777;
+    border-color: #333;
+  }
 
-      /* Dark mode */
-      body.dark {
-        background-color: var(--background-dark);
-        color: var(--text-dark);
-      }
+  /* Accent colors for headings & scroll bar */
+  h1, h2, h3 {
+    transition: color 0.3s;
+  }
 
-      /* Dark mode nav */
-      body.dark nav {
-        background: var(--background-dark);
-        box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
-      }
-      body.dark nav ul.nav-links li a {
-        color: var(--text-dark);
-      }
-      body.dark nav ul.nav-links li a.active,
-      body.dark nav ul.nav-links li a:hover {
-        color: var(--accent-color);
-      }
-      body.dark button {
-        color: var(--text-dark);
-      }
-
-      /* Dark mode hero */
-      body.dark .hero p {
-        color: var(--text-dark);
-      }
-      body.dark #what-we-offer p {
-        color: #ccc;
-      }
-      body.dark footer {
-        color: #777;
-        border-color: #333;
-      }
-
-      /* Accent colors for headings & scroll bar */
-      h1, h2, h3 {
-        transition: color 0.3s;
-      }
-
-      /* Sound toggle button */
-      #sound-toggle {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
-        background: var(--accent-color);
-        border: none;
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        cursor: pointer;
-        color: white;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Hide menu-toggle button by default */
-      .menu-toggle {
-        display: none;
-        font-size: 2rem;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: var(--text-light);
-        padding: 0 1rem;
-      }
-
-      /* Responsive - Show hamburger on small screens */
-      @media (max-width: 768px) {
-        nav ul.nav-links {
-          display: none;
-          flex-direction: column;
-          background: var(--background-light);
-          position: fixed;
-          top: 56px; /* height of nav */
-          left: 40px;
-          right: 0;
-          padding: 1rem 2rem;
-          box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-          z-index: 1001;
-        }
-
-        nav.dark ul.nav-links {
-          background: var(--background-dark);
-          box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
-        }
-
-        nav ul.nav-links.show {
-          display: flex;
-        }
-
-        .menu-toggle {
-          display: block;
-        }
-      }
-    </style>
+  /* Sound toggle button */
+  #sound-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
 </head>
 <body>
 
-  <!-- 🎵 Background Sci-Fi Sound -->
+  <!-- Background Sci-Fi Sound -->
   <audio id="bg-sound" autoplay loop>
     <source src="Resources/morphed-metal-discharged-cinematic-trailer-sound-effects-124763.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
   <!-- Background sound control button -->
-  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound">
-    🔊
-  </button>
+  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound">🔊</button>
 
   <!-- Left Vertical Scroll Bar -->
   <div class="scroll-bar-vertical" aria-label="Page scroll progress" role="progressbar" tabindex="0">
@@ -470,18 +408,16 @@
   </div>
 
   <!-- Navigation -->
-  <nav id="main-nav" role="navigation" aria-label="Main navigation">
-    <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav" class="menu-toggle">
-      &#9776; <!-- hamburger icon -->
-    </button>
-    <ul class="nav-links">
+  <nav role="navigation" aria-label="Main navigation" id="main-nav">
+    <div class="logo">True Logic</div>
+    <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" class="menu-toggle">&#9776;</button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#contact">Contact Us</a></li>
     </ul>
     <div class="nav-icons">
-
       <!-- Accent Dropdown -->
       <div class="accent-dropdown">
         <button class="accent-btn" aria-haspopup="true" aria-expanded="false" aria-label="Choose Accent Color" id="accent-btn">
@@ -514,186 +450,158 @@
       <button class="signin-btn" id="signin-btn" aria-label="Sign in">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
           <path d="M16 21v-2a4 4 0 00-3-3.87"/>
-          <circle cx="12" cy="7" r="4"/>
-          <path d="M3 21v-2a4 4 0 014-4h4"/>
-        </svg>
-      </button>
-
-      <!-- Shopping Cart -->
-      <button class="cart-btn" id="cart-btn" aria-label="Shopping Cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+          <path d="M12 7a4 4 0 110 8 4 4 0 010-8z"/>
+          <path d="M3 9v6a2 2 0 002 2h4"/>
         </svg>
       </button>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero" role="banner" aria-label="Hero banner">
-    <video class="bg-video" autoplay muted loop playsinline>
-      <source src="Resources/video-1.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+  <section class="hero" id="hero" tabindex="0" aria-label="Introduction">
+    <video autoplay muted loop playsinline class="bg-video" src="Resources/184489-873483996.mp4"></video>
     <div class="hero-content">
-      <h1>
-        True Logic<br />
-        <span>Software Solutions</span>
-      </h1>
-      <p>Custom software development crafted with passion and precision.</p>
-      <div class="slogan">Let your software dreams take flight!</div>
-      <button class="btn primary" aria-label="View Our Services">View Our Services</button>
+      <h1>ARTIFICIAL INTELLIGENCE & MACHINE LEARNING MODELS</h1>
+      <p>Always a silver-lining to running out of storage </p>
+      <div class="slogan">Imagine a world filled with unlimted data and memories.</div>
+      <button class="btn primary" id="btn-learn-more">Learn More</button>
     </div>
   </section>
 
   <!-- What We Offer Section -->
-  <section id="what-we-offer" aria-labelledby="offer-title" tabindex="0">
-    <h2 id="offer-title">What We Offer</h2>
-    <p>
-      True Logic is dedicated to delivering bespoke software solutions tailored to your business needs.
-      Our expertise spans mobile apps, web development, custom APIs, and robust integrations.
-    </p>
+  <section id="what-we-offer" tabindex="0" aria-label="What We Offer">
+    <h2>Artificial Intelligence & Machining Learning Models </h2>
+    <p>We build tailored software solutions designed specifically for your unique business workflows and challenges. From concept to deployment, we deliver precision-crafted applications that drive innovation and efficiency.</p>
   </section>
 
   <!-- Footer -->
-  <footer role="contentinfo">
-    &copy; 2025 True Logic Software Solutions. All rights reserved.
+  <footer>
+    &copy; 2025 True Logic - Software Solutions. All rights reserved.
   </footer>
 
-  <script>
-    // Hamburger menu toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const navLinks = document.querySelector('nav ul.nav-links');
+<script>
+  // Scroll Bar Functionality
+  const scrollBar = document.querySelector('.scroll-bar-vertical');
+  const scrollThumb = scrollBar.querySelector('.scroll-thumb');
+  const scrollPercentText = scrollBar.querySelector('.scroll-percentage');
 
-    menuToggle.addEventListener('click', () => {
-      const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
-      menuToggle.setAttribute('aria-expanded', !expanded);
-      navLinks.classList.toggle('show');
-    });
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+    const maxThumbTop = scrollBar.clientHeight - scrollThumb.clientHeight;
+    scrollThumb.style.transform = `translateY(${(scrollPercent / 100) * maxThumbTop}px)`;
+    scrollPercentText.textContent = scrollPercent + '%';
+  });
 
-    // Accent color dropdown toggle
-    const accentBtn = document.getElementById('accent-btn');
-    const accentMenu = document.getElementById('accent-menu');
+  // Hamburger toggle for mobile menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
 
-    accentBtn.addEventListener('click', () => {
-      const expanded = accentBtn.getAttribute('aria-expanded') === 'true' || false;
-      accentBtn.setAttribute('aria-expanded', !expanded);
-      accentMenu.style.display = expanded ? 'none' : 'flex';
-      if (!expanded) {
-        accentMenu.focus();
-      }
-    });
+  menuToggle.addEventListener('click', () => {
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', !expanded);
+    navLinks.classList.toggle('show');
+  });
 
-    // Clicking outside accent menu closes it
-    document.addEventListener('click', (e) => {
-      if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
-        accentMenu.style.display = 'none';
-        accentBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
+  // Accent color dropdown
+  const accentBtn = document.getElementById('accent-btn');
+  const accentMenu = document.getElementById('accent-menu');
 
-    // Accent color change
-    accentMenu.querySelectorAll('.accent-circle').forEach(colorBtn => {
-      colorBtn.addEventListener('click', () => {
-        const color = colorBtn.getAttribute('data-color');
-        document.documentElement.style.setProperty('--accent-color', color);
-        document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
-        accentMenu.style.display = 'none';
-        accentBtn.setAttribute('aria-expanded', 'false');
-      });
-      // Keyboard accessibility
-      colorBtn.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          colorBtn.click();
-        }
-      });
-    });
-
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const themeIcon = document.getElementById('theme-icon');
-
-    function setTheme(dark) {
-      if (dark) {
-        body.classList.add('dark');
-        themeToggle.setAttribute('aria-pressed', 'true');
-        // Change icon to sun for dark mode
-        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
-      } else {
-        body.classList.remove('dark');
-        themeToggle.setAttribute('aria-pressed', 'false');
-        // Moon icon for light mode
-        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
-      }
-    }
-
-    // Check stored theme preference or system preference
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') {
-      setTheme(true);
-    } else if (storedTheme === 'light') {
-      setTheme(false);
+  accentBtn.addEventListener('click', () => {
+    const expanded = accentBtn.getAttribute('aria-expanded') === 'true';
+    accentBtn.setAttribute('aria-expanded', !expanded);
+    if (!expanded) {
+      accentMenu.style.display = 'flex';
+      accentMenu.focus();
     } else {
-      // Default to system preference
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark);
+      accentMenu.style.display = 'none';
     }
+  });
 
-    themeToggle.addEventListener('click', () => {
-      const isDark = body.classList.contains('dark');
-      setTheme(!isDark);
-      localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+  // Close accent menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
+      accentBtn.setAttribute('aria-expanded', false);
+      accentMenu.style.display = 'none';
+    }
+  });
+
+  // Change accent color on click or keyboard enter
+  accentMenu.querySelectorAll('.accent-circle').forEach(circle => {
+    circle.addEventListener('click', () => {
+      const color = circle.getAttribute('data-color');
+      document.documentElement.style.setProperty('--accent-color', color);
+      // Update accent gradient with the new accent color & green (fixed)
+      document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
     });
-
-    // Background sound toggle
-    const bgSound = document.getElementById('bg-sound');
-    const soundToggle = document.getElementById('sound-toggle');
-
-    soundToggle.addEventListener('click', () => {
-      if (bgSound.paused) {
-        bgSound.play();
-        soundToggle.textContent = '🔊';
-      } else {
-        bgSound.pause();
-        soundToggle.textContent = '🔇';
-      }
-    });
-
-    // Initialize sound button state
-    if (bgSound.paused) {
-      soundToggle.textContent = '🔇';
-    } else {
-      soundToggle.textContent = '🔊';
-    }
-
-    // Scroll progress bar
-    const scrollBar = document.querySelector('.scroll-bar-vertical');
-    const scrollThumb = scrollBar.querySelector('.scroll-thumb');
-    const scrollPercentLabel = scrollBar.querySelector('.scroll-percentage');
-
-    function updateScrollBar() {
-      const scrollTop = window.scrollY || window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollThumb.style.height = `${Math.min(Math.max(scrollPercent, 5), 90)}%`;
-      scrollPercentLabel.textContent = `${Math.round(scrollPercent)}%`;
-    }
-
-    window.addEventListener('scroll', updateScrollBar);
-    window.addEventListener('resize', updateScrollBar);
-    updateScrollBar();
-
-    // Accessibility: keyboard for menu toggle
-    menuToggle.addEventListener('keydown', (e) => {
+    circle.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        menuToggle.click();
+        circle.click();
       }
     });
+  });
 
-  </script>
+  // Dark / Light Mode Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function setDarkMode(enabled) {
+    if (enabled) {
+      document.body.classList.add('dark');
+      themeToggle.setAttribute('aria-pressed', 'true');
+      // Change icon to sun
+      themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+    } else {
+      document.body.classList.remove('dark');
+      themeToggle.setAttribute('aria-pressed', 'false');
+      // Change icon to moon
+      themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>`;
+    }
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.contains('dark');
+    setDarkMode(!isDark);
+  });
+
+  // On page load, you could detect prefers-color-scheme and set accordingly (optional)
+  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    setDarkMode(true);
+  }
+
+  // Background Sound Toggle
+  const bgSound = document.getElementById('bg-sound');
+  const soundToggle = document.getElementById('sound-toggle');
+  let soundOn = true;
+
+  soundToggle.addEventListener('click', () => {
+    if(soundOn){
+      bgSound.pause();
+      soundToggle.textContent = '🔈';
+      soundToggle.title = 'Unmute Background Sound';
+    } else {
+      bgSound.play();
+      soundToggle.textContent = '🔊';
+      soundToggle.title = 'Mute Background Sound';
+    }
+    soundOn = !soundOn;
+  });
+
+  // Learn More button smooth scroll to what-we-offer
+  document.getElementById('btn-learn-more').addEventListener('click', () => {
+    document.getElementById('what-we-offer').scrollIntoView({behavior: 'smooth'});
+  });
+</script>
+
 </body>
 </html>
