@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>True Logic - Custom Software Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --accent-color: #2563eb;
+    --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
+    --background-light: #fff;
+    --background-dark: #121212;
+    --text-light: #121212;
+    --text-dark: #eee;
+  }
+
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+    padding-left: 40px; /* space for vertical scroll bar */
+  }
+
+  /* Vertical Scroll Bar Left */
+  .scroll-bar-vertical {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 100vh;
+    background: var(--accent-gradient);
+    border-radius: 0 12px 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+  }
+  .scroll-thumb {
+    position: relative;
+    width: 12px;
+    height: 60px;
+    background: #0008;
+    border-radius: 12px;
+    transition: background 0.3s;
+  }
+  .scroll-bar-vertical:hover .scroll-thumb {
+    background: var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-color);
+  }
+  .scroll-percentage {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(8px, -50%);
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .scroll-bar-vertical:hover .scroll-percentage {
+    opacity: 1;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 40px;
+    right: 0;
+    background: var(--background-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    z-index: 1000;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  nav.dark {
+    background: var(--background-dark);
+    box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul li a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: color 0.3s;
+  }
+  nav.dark ul li a {
+    color: var(--text-dark);
+  }
+  nav ul li a.active,
+  nav ul li a:hover {
+    color: var(--accent-color);
+  }
+
+  .nav-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.3s;
+  }
+  nav.dark button {
+    color: var(--text-dark);
+  }
+  button:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+  }
+
+  /* Accent Dropdown */
+  .accent-dropdown {
+    position: relative;
+  }
+  .accent-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+  nav.dark .accent-btn {
+    color: var(--text-dark);
+  }
+  .accent-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+  }
+  .accent-menu {
+    position: absolute;
+    top: 150%;
+    left: 0;
+    background: var(--background-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+    display: none;
+    padding: 8px;
+    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 180px;
+    z-index: 1100;
+  }
+  nav.dark .accent-menu {
+    background: var(--background-dark);
+  }
+  .accent-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    flex-shrink: 0;
+  }
+  .accent-circle:focus,
+  .accent-circle:hover {
+    border-color: var(--accent-color);
+  }
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+  .hero video.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    filter: brightness(0.6);
+  }
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin: 0;
+    background: linear-gradient(90deg, var(--accent-color), #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #10b981, var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    max-width: 600px;
+    color: var(--text-light);
+  }
+  nav.dark ~ .hero p {
+    color: var(--text-dark);
+  }
+
+  /* Slogan */
+  .hero .slogan {
+    margin-top: 1rem;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--accent-color);
+  }
+
+  /* Buttons */
+  .btn.primary {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    box-shadow:
+      0 0 10px var(--accent-color),
+      0 0 25px var(--accent-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn.primary:hover,
+  .view-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 20px var(--accent-color),
+      0 0 40px var(--accent-color);
+  }
+
+  /* What We Offer Section */
+  #what-we-offer {
+    max-width: 900px;
+    margin: 3rem auto 6rem;
+    padding: 0 1rem;
+    text-align: center;
+  }
+  #what-we-offer h2 {
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+  }
+  #what-we-offer p {
+    font-size: 1.25rem;
+    color: #444;
+  }
+  nav.dark #what-we-offer p {
+    color: #ccc;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    color: #999;
+    border-top: 1px solid #eee;
+  }
+  nav.dark footer {
+    color: #777;
+    border-color: #333;
+  }
+
+  /* Dark mode */
+  body.dark {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+  }
+
+  /* Dark mode nav */
+  body.dark nav {
+    background: var(--background-dark);
+    box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+  }
+  body.dark nav ul li a {
+    color: var(--text-dark);
+  }
+  body.dark nav ul li a.active,
+  body.dark nav ul li a:hover {
+    color: var(--accent-color);
+  }
+  body.dark button {
+    color: var(--text-dark);
+  }
+
+  /* Dark mode hero */
+  body.dark .hero p {
+    color: var(--text-dark);
+  }
+  body.dark #what-we-offer p {
+    color: #ccc;
+  }
+  body.dark footer {
+    color: #777;
+    border-color: #333;
+  }
+
+  /* Accent colors for headings & scroll bar */
+  h1, h2, h3 {
+    transition: color 0.3s;
+  }
+
+  /* Sound toggle button */
+  #sound-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+  <!-- 🎵 Background Sci-Fi Sound -->
+  <audio id="bg-sound" autoplay loop>
+    <source src="Resources/sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Background sound control button -->
+  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound">
+    🔊
+  </button>
+
+  <!-- Left Vertical Scroll Bar -->
+  <div class="scroll-bar-vertical" aria-label="Page scroll progress" role="progressbar" tabindex="0">
+    <div class="scroll-thumb"></div>
+    <div class="scroll-percentage" aria-hidden="true">0%</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="main-nav" role="navigation" aria-label="Main navigation">
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about-us.html">About Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
+    </ul>
+    <div class="nav-icons">
+
+      <!-- Accent Dropdown -->
+      <div class="accent-dropdown">
+        <button class="accent-btn" aria-haspopup="true" aria-expanded="false" aria-label="Choose Accent Color" id="accent-btn">
+          Accent
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12l4 4 4-4"/>
+          </svg>
+        </button>
+        <div class="accent-menu" role="menu" aria-label="Accent color selection" id="accent-menu" tabindex="-1">
+          <span tabindex="0" class="accent-circle" data-color="#2563eb" style="background:#2563eb" aria-label="Blue accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#10b981" style="background:#10b981" aria-label="Green accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#ef4444" style="background:#ef4444" aria-label="Red accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#f59e0b" style="background:#f59e0b" aria-label="Yellow accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#8b5cf6" style="background:#8b5cf6" aria-label="Purple accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#ec4899" style="background:#ec4899" aria-label="Pink accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#14b8a6" style="background:#14b8a6" aria-label="Teal accent color"></span>
+          <span tabindex="0" class="accent-circle" data-color="#f97316" style="background:#f97316" aria-label="Orange accent color"></span>
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme" aria-pressed="false" title="Toggle Light/Dark Mode">
+        <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+
+      <!-- Sign-in -->
+      <button class="signin-btn" id="signin-btn" aria-label="Sign in">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
+          <path d="M16 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M12 7a4 4 0 110 8 4 4 0 010-8z"/>
+          <path d="M3 9v6a2 2 0 002 2h4"/>
+        </svg>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero" tabindex="0" aria-label="Introduction">
+    <video autoplay muted loop playsinline class="bg-video" src=""></video>
+    <div class="hero-content">
+      <h1>OUR SERVICES</h1>
+      <p>Only the best quality products for our people.</p>
+      <div class="slogan">Smart Solutions, Exceptional Results.</div>
+      
+    </div>
+  </section>
+
+  <!-- What We Offer Section -->
+  <section id="what-we-offer" tabindex="0" aria-label="What We Offer">
+    <h2> </h2>
+    <p><section id="what-we-offer" tabindex="0" aria-label="What We Offer">
+    <h2></h2>
+    <p>At True Logic, we provide a full spectrum of cutting-edge digital solutions designed to empower businesses in the modern world. Our flagship Web Development services deliver high-performing, scalable, and visually stunning websites tailored to your goals. We specialize in Mobile App Development, creating user-friendly apps that drive engagement and growth across platforms. Our Cloud Computing Solutions ensure your business stays agile, secure, and future-ready with seamless cloud integration. We also offer AI & Machine Learning solutions, Database Design & Management, UX/UI Design, and IT Consulting—all crafted to optimize performance and deliver measurable results. With a focus on innovation, affordability, and quality, True Logic is your trusted partner for building exceptional software solutions that make a lasting impact.</p>
+  </section></p>
+  </section>
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 True Logic - Software Solutions. All rights reserved.
+  </footer>
+
+<script>
+  // Scroll Bar Functionality
+  const scrollBar = document.querySelector('.scroll-bar-vertical');
+  const scrollThumb = scrollBar.querySelector('.scroll-thumb');
+  const scrollPercentText = scrollBar.querySelector('.scroll-percentage');
+
+  function updateScroll() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = docHeight ? (scrollTop / docHeight) * 100 : 0;
+    scrollThumb.style.height = '60px'; // fixed height
+    scrollThumb.style.top = (scrollPercent * (window.innerHeight - 60) / 100) + 'px';
+    scrollPercentText.textContent = Math.round(scrollPercent) + '%';
+  }
+  window.addEventListener('scroll', updateScroll);
+  window.addEventListener('resize', updateScroll);
+  updateScroll();
+
+  // Theme toggle
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+  const nav = document.getElementById('main-nav');
+  const themeIcon = document.getElementById('theme-icon');
+  let darkMode = false;
+
+  themeToggleBtn.addEventListener('click', () => {
+    darkMode = !darkMode;
+    body.classList.toggle('dark', darkMode);
+    nav.classList.toggle('dark', darkMode);
+    themeToggleBtn.setAttribute('aria-pressed', darkMode.toString());
+    if (darkMode) {
+      themeIcon.innerHTML = '<circle cx="12" cy="12" r="5" /><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/>';
+    } else {
+      themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+    }
+  });
+
+  // Accent color dropdown
+  const accentBtn = document.getElementById('accent-btn');
+  const accentMenu = document.getElementById('accent-menu');
+  accentBtn.addEventListener('click', () => {
+    const expanded = accentBtn.getAttribute('aria-expanded') === 'true';
+    accentBtn.setAttribute('aria-expanded', !expanded);
+    accentMenu.style.display = expanded ? 'none' : 'flex';
+  });
+  accentMenu.querySelectorAll('.accent-circle').forEach(circle => {
+    circle.addEventListener('click', () => {
+      const color = circle.getAttribute('data-color');
+      document.documentElement.style.setProperty('--accent-color', color);
+      document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
+      accentMenu.style.display = 'none';
+      accentBtn.setAttribute('aria-expanded', 'false');
+
+      // Change heading colors dynamically
+      document.querySelectorAll('h1, h2').forEach(el => {
+        el.style.background = `linear-gradient(90deg, ${color}, #10b981)`;
+        el.style.webkitBackgroundClip = 'text';
+        el.style.webkitTextFillColor = 'transparent';
+      });
+
+      // Also update scroll bar background gradient
+      document.querySelector('.scroll-bar-vertical').style.background = `linear-gradient(45deg, ${color}, #10b981)`;
+    });
+    circle.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        circle.click();
+      }
+    });
+  });
+
+  // Background sound control
+  const bgSound = document.getElementById('bg-sound');
+  const soundToggleBtn = document.getElementById('sound-toggle');
+  let isPlaying = true;
+
+  soundToggleBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      bgSound.pause();
+      soundToggleBtn.textContent = '🔈'; // muted icon
+      soundToggleBtn.setAttribute('aria-label', 'Unmute background sound');
+      soundToggleBtn.setAttribute('title', 'Unmute Background Sound');
+    } else {
+      bgSound.play();
+      soundToggleBtn.textContent = '🔊'; // volume icon
+      soundToggleBtn.setAttribute('aria-label', 'Mute background sound');
+      soundToggleBtn.setAttribute('title', 'Mute Background Sound');
+    }
+    isPlaying = !isPlaying;
+  });
+
+  // Accessibility: close accent menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
+      accentMenu.style.display = 'none';
+      accentBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+</body>
+</html>

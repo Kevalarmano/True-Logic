@@ -1,367 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>True Logic - Custom Software Development</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent-color: #2563eb;
+      --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
+      --background-light: #fff;
+      --background-dark: #121212;
+      --text-light: #121212;
+      --text-dark: #eee;
+    }
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>True Logic - Custom Software Development</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-<style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+      padding-left: 40px; /* space for vertical scroll bar */
+    }
 
-  
-  :root {
-    --accent-color: #2563eb;
-    --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
-    --background-light: #fff;
-    --background-dark: #121212;
-    --text-light: #121212;
-    --text-dark: #eee;
-  }
+    /* Vertical Scroll Bar Left */
+    .scroll-bar-vertical {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 100vh;
+      background: var(--accent-gradient);
+      border-radius: 0 12px 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    .scroll-thumb {
+      position: relative;
+      width: 12px;
+      height: 60px;
+      background: #0008;
+      border-radius: 12px;
+      transition: background 0.3s;
+    }
+    .scroll-bar-vertical:hover .scroll-thumb {
+      background: var(--accent-color);
+      box-shadow: 0 0 15px var(--accent-color);
+    }
+    .scroll-percentage {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translate(8px, -50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .scroll-bar-vertical:hover .scroll-percentage {
+      opacity: 1;
+    }
 
-  /* Reset and base */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--background-light);
-    color: var(--text-light);
-    transition: background-color 0.3s, color 0.3s;
-    padding-left: 40px; /* space for vertical scroll bar */
-  }
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 40px;
+      right: 0;
+      background: var(--background-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      z-index: 1000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav.dark {
+      background: var(--background-dark);
+      box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.3s;
+    }
+    nav.dark ul li a {
+      color: var(--text-dark);
+    }
+    nav ul li a.active,
+    nav ul li a:hover {
+      color: var(--accent-color);
+    }
 
-  /* Vertical Scroll Bar Left */
-  .scroll-bar-vertical {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 100vh;
-    background: var(--accent-gradient);
-    border-radius: 0 12px 12px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 9999;
-  }
-  .scroll-thumb {
-    position: relative;
-    width: 12px;
-    height: 60px;
-    background: #0008;
-    border-radius: 12px;
-    transition: background 0.3s;
-  }
-  .scroll-bar-vertical:hover .scroll-thumb {
-    background: var(--accent-color);
-    box-shadow: 0 0 15px var(--accent-color);
-  }
-  .scroll-percentage {
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translate(8px, -50%);
-    background: rgba(0,0,0,0.75);
-    color: #fff;
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .scroll-bar-vertical:hover .scroll-percentage {
-    opacity: 1;
-  }
+    .nav-icons {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.3s;
+    }
+    nav.dark button {
+      color: var(--text-dark);
+    }
+    button:focus {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 2px;
+    }
 
-  /* Navigation */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 40px;
-    right: 0;
-    background: var(--background-light);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-    z-index: 1000;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  nav.dark {
-    background: var(--background-dark);
-    box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-  nav ul li a {
-    text-decoration: none;
-    font-weight: 600;
-    color: var(--text-light);
-    transition: color 0.3s;
-  }
-  nav.dark ul li a {
-    color: var(--text-dark);
-  }
-  nav ul li a.active,
-  nav ul li a:hover {
-    color: var(--accent-color);
-  }
+    /* Accent Dropdown */
+    .accent-dropdown {
+      position: relative;
+    }
+    .accent-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+    nav.dark .accent-btn {
+      color: var(--text-dark);
+    }
+    .accent-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+    }
+    .accent-menu {
+      position: absolute;
+      top: 150%;
+      left: 0;
+      background: var(--background-light);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+      display: none;
+      padding: 8px;
+      gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      width: 180px;
+      z-index: 1100;
+    }
+    nav.dark .accent-menu {
+      background: var(--background-dark);
+    }
+    .accent-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+      flex-shrink: 0;
+    }
+    .accent-circle:focus,
+    .accent-circle:hover {
+      border-color: var(--accent-color);
+    }
 
-  .nav-icons {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-  button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-light);
-    transition: color 0.3s;
-  }
-  nav.dark button {
-    color: var(--text-dark);
-  }
-  button:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
-  }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--text-light);
+      overflow: hidden;
+      padding: 0 1rem;
+    }
+    .hero video.bg-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      filter: brightness(0.6);
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 0;
+      background: linear-gradient(90deg, var(--accent-color), #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      text-transform: uppercase;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, #10b981, var(--accent-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      max-width: 600px;
+      color: var(--text-light);
+    }
+    nav.dark ~ .hero p {
+      color: var(--text-dark);
+    }
 
-  /* Accent Dropdown */
-  .accent-dropdown {
-    position: relative;
-  }
-  .accent-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
-    color: var(--text-light);
-  }
-  nav.dark .accent-btn {
-    color: var(--text-dark);
-  }
-  .accent-btn svg {
-    width: 18px;
-    height: 18px;
-    stroke: currentColor;
-  }
-  .accent-menu {
-    position: absolute;
-    top: 150%;
-    left: 0;
-    background: var(--background-light);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
-    display: none;
-    padding: 8px;
-    gap: 8px;
-    display: flex;
-    flex-wrap: wrap;
-    width: 180px;
-    z-index: 1100;
-  }
-  nav.dark .accent-menu {
-    background: var(--background-dark);
-  }
-  .accent-circle {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border-color 0.3s;
-    flex-shrink: 0;
-  }
-  .accent-circle:focus,
-  .accent-circle:hover {
-    border-color: var(--accent-color);
-  }
+    /* Slogan */
+    .hero .slogan {
+      margin-top: 1rem;
+      font-style: italic;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: var(--accent-color);
+    }
 
-  /* Hero Section */
-  .hero {
-    position: relative;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: var(--text-light);
-    overflow: hidden;
-    padding: 0 1rem;
-  }
-  .hero video.bg-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    filter: brightness(0.6);
-  }
-  .hero h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    margin: 0;
-    background: linear-gradient(90deg, var(--accent-color), #10b981);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    text-transform: uppercase;
-  }
-  .hero h1 span {
-    background: linear-gradient(90deg, #10b981, var(--accent-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .hero p {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    max-width: 600px;
-    color: var(--text-light);
-  }
-  nav.dark ~ .hero p {
-    color: var(--text-dark);
-  }
+    /* Buttons */
+    .btn.primary {
+      margin-top: 1.5rem;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: var(--accent-gradient);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px var(--accent-color),
+        0 0 25px var(--accent-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn.primary:hover,
+    .view-btn:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 20px var(--accent-color),
+        0 0 40px var(--accent-color);
+    }
 
-  /* Slogan */
-  .hero .slogan {
-    margin-top: 1rem;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.3rem;
-    color: var(--accent-color);
-  }
+    /* About Us Section */
+    #about-us {
+      max-width: 900px;
+      margin: 3rem auto 6rem;
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      color: inherit;
+    }
+    #about-us img {
+      flex: 1 1 300px;
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--accent-color);
+      transition: box-shadow 0.3s ease;
+    }
+    #about-us article {
+      flex: 2 1 400px;
+    }
+    #about-us h2 {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      font-size: 2.75rem;
+    }
+    #about-us p {
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      color: inherit;
+    }
 
-  /* Buttons */
-  .btn.primary {
-    margin-top: 1.5rem;
-    padding: 0.9rem 2.2rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    background: var(--accent-gradient);
-    border: none;
-    border-radius: 30px;
-    color: white;
-    cursor: pointer;
-    box-shadow:
-      0 0 10px var(--accent-color),
-      0 0 25px var(--accent-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .btn.primary:hover,
-  .view-btn:hover {
-    transform: scale(1.05);
-    box-shadow:
-      0 0 20px var(--accent-color),
-      0 0 40px var(--accent-color);
-  }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #999;
+      border-top: 1px solid #eee;
+    }
+    nav.dark footer {
+      color: #777;
+      border-color: #333;
+    }
 
-  /* What We Offer Section */
-  #what-we-offer {
-    max-width: 900px;
-    margin: 3rem auto 6rem;
-    padding: 0 1rem;
-    text-align: center;
-  }
-  #what-we-offer h2 {
-    font-size: 2.75rem;
-    margin-bottom: 1rem;
-    color: var(--accent-color);
-    text-shadow: 0 0 10px var(--accent-color);
-  }
-  #what-we-offer p {
-    font-size: 1.25rem;
-    color: #444;
-  }
-  nav.dark #what-we-offer p {
-    color: #ccc;
-  }
+    /* Dark mode */
+    body.dark {
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+    }
 
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    font-size: 0.9rem;
-    color: #999;
-    border-top: 1px solid #eee;
-  }
-  nav.dark footer {
-    color: #777;
-    border-color: #333;
-  }
+    /* Dark mode nav */
+    body.dark nav {
+      background: var(--background-dark);
+      box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+    }
+    body.dark nav ul li a {
+      color: var(--text-dark);
+    }
+    body.dark nav ul li a.active,
+    body.dark nav ul li a:hover {
+      color: var(--accent-color);
+    }
+    body.dark button {
+      color: var(--text-dark);
+    }
 
-  /* Dark mode */
-  body.dark {
-    background-color: var(--background-dark);
-    color: var(--text-dark);
-  }
+    /* Dark mode hero */
+    body.dark .hero p {
+      color: var(--text-dark);
+    }
+    body.dark footer {
+      color: #777;
+      border-color: #333;
+    }
 
-  /* Dark mode nav */
-  body.dark nav {
-    background: var(--background-dark);
-    box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
-  }
-  body.dark nav ul li a {
-    color: var(--text-dark);
-  }
-  body.dark nav ul li a.active,
-  body.dark nav ul li a:hover {
-    color: var(--accent-color);
-  }
-  body.dark button {
-    color: var(--text-dark);
-  }
+    /* Accent colors for headings & scroll bar */
+    h1, h2, h3 {
+      transition: color 0.3s;
+    }
 
-  /* Dark mode hero */
-  body.dark .hero p {
-    color: var(--text-dark);
-  }
-  body.dark #what-we-offer p {
-    color: #ccc;
-  }
-  body.dark footer {
-    color: #777;
-    border-color: #333;
-  }
-
-  /* Accent colors for headings & scroll bar */
-  h1, h2, h3 {
-    transition: color 0.3s;
-  }
-
-  /* Sound toggle button */
-  #sound-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999;
-    background: var(--accent-color);
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    color: white;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-</style>
+    /* Sound toggle button */
+    #sound-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: var(--accent-color);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      color: white;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
 
@@ -387,8 +393,8 @@
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about-us.html">About Us</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact-us.html">Contact Us</a></li>
     </ul>
     <div class="nav-icons">
 
@@ -437,22 +443,27 @@
     <video autoplay muted loop playsinline class="bg-video" src=""></video>
     <div class="hero-content">
       <h1>ABOUT US</h1>
-      <p>Get to know our success story </p>
-      <div class="slogan">We build for the people</div>
+      <p>The story behind the company success </p>
+      <div class="slogan">We build for the people.</div>
       <button class="btn primary" id="btn-learn-more">Learn More</button>
     </div>
   </section>
 
-  <!-- What We Offer Section -->
-  <section id="what-we-offer" tabindex="0" aria-label="What We Offer">
-    <h2>About us </h2>
-    <p>At True Logic, we believe that world-class software should be accessible to every business – not just those with massive budgets. Our mission is simple: to craft exceptional, cutting-edge digital solutions at prices that don’t break the bank.
-
-We’re a passionate team of developers, designers, and innovators who thrive on turning ideas into reality. Whether it’s a sleek mobile app, a powerful web platform, or a fully integrated business solution, we blend creativity with technical expertise to deliver products that look incredible, work flawlessly, and grow with your business.
-
-What sets us apart is our commitment to affordability without compromising quality. We work closely with every client to understand their goals, ensuring that every project is tailor-made to fit their vision, timeline, and budget.
-
-At True Logic, we don’t just build software – we build partnerships, success stories, and long-lasting solutions that empower businesses to thrive in the digital age.</p>
+  <!-- About Us Section -->
+  <section id="about-us" tabindex="0" aria-labelledby="about-title">
+    <img 
+      src="Resources/ChatGPT Image Aug 1, 2025, 07_58_15 PM.jpeg" 
+      alt="Keval Armano Ramchander, founder of True Logic"
+      loading="lazy"
+    />
+    <article>
+      <h2 id="about-title">About Us & The Founder</h2>
+      <p>True Logic was born from the passion and vision of Keval Armano Ramchander, who believes software should be accessible, affordable, and tailored for businesses of all sizes.</p>
+      <p>We create innovative solutions to simplify complex problems — always focusing on quality, usability, and your success.</p>
+      <p>At True Logic, we don’t just build software — we build partnerships, empower dreams, and help companies thrive in the digital age.</p>
+      <p>Keval’s journey isn’t just about technology; it’s about heart, persistence, and a deep commitment to empowering businesses through cutting-edge digital solutions. Every line of code, every product, and every partnership is infused with the dream of transforming the digital landscape — not just for the sake of progress, but to create real success stories for clients across the nation.</p>
+      <p>Join us and experience software development that’s innovative, reliable, and designed with your business in mind.</p>
+    </article>
   </section>
 
   <!-- Footer -->
@@ -460,105 +471,119 @@ At True Logic, we don’t just build software – we build partnerships, success
     &copy; 2025 True Logic - Software Solutions. All rights reserved.
   </footer>
 
-<script>
-  // Scroll Bar Functionality
-  const scrollBar = document.querySelector('.scroll-bar-vertical');
-  const scrollThumb = scrollBar.querySelector('.scroll-thumb');
-  const scrollPercentText = scrollBar.querySelector('.scroll-percentage');
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const themeIcon = document.getElementById('theme-icon');
 
-  function updateScroll() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = docHeight ? (scrollTop / docHeight) * 100 : 0;
-    scrollThumb.style.height = '60px'; // fixed height
-    scrollThumb.style.top = (scrollPercent * (window.innerHeight - 60) / 100) + 'px';
-    scrollPercentText.textContent = Math.round(scrollPercent) + '%';
-  }
-  window.addEventListener('scroll', updateScroll);
-  window.addEventListener('resize', updateScroll);
-  updateScroll();
-
-  // Theme toggle
-  const themeToggleBtn = document.getElementById('theme-toggle');
-  const body = document.body;
-  const nav = document.getElementById('main-nav');
-  const themeIcon = document.getElementById('theme-icon');
-  let darkMode = false;
-
-  themeToggleBtn.addEventListener('click', () => {
-    darkMode = !darkMode;
-    body.classList.toggle('dark', darkMode);
-    nav.classList.toggle('dark', darkMode);
-    themeToggleBtn.setAttribute('aria-pressed', darkMode.toString());
-    if (darkMode) {
-      themeIcon.innerHTML = '<circle cx="12" cy="12" r="5" /><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/>';
-    } else {
-      themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+    function updateThemeIcon(isDark) {
+      if (isDark) {
+        // Moon icon (dark)
+        themeIcon.innerHTML = `
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        `;
+      } else {
+        // Sun icon (light)
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2"/>
+          <path d="M12 21v2"/>
+          <path d="M4.22 4.22l1.42 1.42"/>
+          <path d="M18.36 18.36l1.42 1.42"/>
+          <path d="M1 12h2"/>
+          <path d="M21 12h2"/>
+          <path d="M4.22 19.78l1.42-1.42"/>
+          <path d="M18.36 5.64l1.42-1.42"/>
+        `;
+      }
     }
-  });
 
-  // Accent color dropdown
-  const accentBtn = document.getElementById('accent-btn');
-  const accentMenu = document.getElementById('accent-menu');
-  accentBtn.addEventListener('click', () => {
-    const expanded = accentBtn.getAttribute('aria-expanded') === 'true';
-    accentBtn.setAttribute('aria-expanded', !expanded);
-    accentMenu.style.display = expanded ? 'none' : 'flex';
-  });
-  accentMenu.querySelectorAll('.accent-circle').forEach(circle => {
-    circle.addEventListener('click', () => {
-      const color = circle.getAttribute('data-color');
-      document.documentElement.style.setProperty('--accent-color', color);
-      document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
-      accentMenu.style.display = 'none';
-      accentBtn.setAttribute('aria-expanded', 'false');
-
-      // Change heading colors dynamically
-      document.querySelectorAll('h1, h2').forEach(el => {
-        el.style.background = `linear-gradient(90deg, ${color}, #10b981)`;
-        el.style.webkitBackgroundClip = 'text';
-        el.style.webkitTextFillColor = 'transparent';
-      });
-
-      // Also update scroll bar background gradient
-      document.querySelector('.scroll-bar-vertical').style.background = `linear-gradient(45deg, ${color}, #10b981)`;
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      themeToggle.setAttribute('aria-pressed', isDark);
+      updateThemeIcon(isDark);
     });
-    circle.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        circle.click();
+
+    // Initialize theme icon based on default
+    updateThemeIcon(body.classList.contains('dark'));
+
+    // Accent color selection
+    const accentBtn = document.getElementById('accent-btn');
+    const accentMenu = document.getElementById('accent-menu');
+
+    accentBtn.addEventListener('click', () => {
+      const expanded = accentBtn.getAttribute('aria-expanded') === 'true';
+      accentBtn.setAttribute('aria-expanded', !expanded);
+      accentMenu.style.display = expanded ? 'none' : 'flex';
+    });
+
+    accentMenu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        accentMenu.style.display = 'none';
+        accentBtn.setAttribute('aria-expanded', false);
+        accentBtn.focus();
       }
     });
-  });
 
-  // Background sound control
-  const bgSound = document.getElementById('bg-sound');
-  const soundToggleBtn = document.getElementById('sound-toggle');
-  let isPlaying = true;
+    document.querySelectorAll('.accent-circle').forEach(circle => {
+      circle.addEventListener('click', () => {
+        const color = circle.getAttribute('data-color');
+        document.documentElement.style.setProperty('--accent-color', color);
+        document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
+        accentMenu.style.display = 'none';
+        accentBtn.setAttribute('aria-expanded', false);
+      });
+      circle.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          circle.click();
+        }
+      });
+    });
 
-  soundToggleBtn.addEventListener('click', () => {
-    if (isPlaying) {
-      bgSound.pause();
-      soundToggleBtn.textContent = '🔈'; // muted icon
-      soundToggleBtn.setAttribute('aria-label', 'Unmute background sound');
-      soundToggleBtn.setAttribute('title', 'Unmute Background Sound');
-    } else {
-      bgSound.play();
-      soundToggleBtn.textContent = '🔊'; // volume icon
-      soundToggleBtn.setAttribute('aria-label', 'Mute background sound');
-      soundToggleBtn.setAttribute('title', 'Mute Background Sound');
-    }
-    isPlaying = !isPlaying;
-  });
+    // Close accent menu if clicked outside
+    document.addEventListener('click', (e) => {
+      if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
+        accentMenu.style.display = 'none';
+        accentBtn.setAttribute('aria-expanded', false);
+      }
+    });
 
-  // Accessibility: close accent menu on outside click
-  document.addEventListener('click', (e) => {
-    if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
-      accentMenu.style.display = 'none';
-      accentBtn.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
+    // Scroll bar progress
+    const scrollBar = document.querySelector('.scroll-bar-vertical');
+    const scrollThumb = scrollBar.querySelector('.scroll-thumb');
+    const scrollPercentage = scrollBar.querySelector('.scroll-percentage');
 
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      scrollThumb.style.height = `${Math.max(60, scrollPercent * 3)}px`; // thumb grows as you scroll
+      scrollPercentage.textContent = `${Math.round(scrollPercent)}%`;
+    });
+
+    // Sound toggle
+    const bgSound = document.getElementById('bg-sound');
+    const soundToggle = document.getElementById('sound-toggle');
+
+    soundToggle.addEventListener('click', () => {
+      if (bgSound.paused) {
+        bgSound.play();
+        soundToggle.textContent = '🔊';
+      } else {
+        bgSound.pause();
+        soundToggle.textContent = '🔈';
+      }
+    });
+
+    // Accessibility: focus styles for keyboard nav
+    document.body.addEventListener('keydown', e => {
+      if (e.key === 'Tab') {
+        document.body.classList.add('user-is-tabbing');
+      }
+    });
+  </script>
 </body>
 </html>
