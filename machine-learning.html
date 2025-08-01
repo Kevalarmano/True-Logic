@@ -1,26 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>True Logic - Custom Software Development</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 <style>
-  /* Responsive fixes */
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-  }
-  body {
-    background-color: var(--background-light);
-    color: var(--text-light);
-    transition: background-color 0.3s, color 0.3s;
-    padding-left: 40px; /* for vertical scroll bar */
-  }
 
-  /* Colors */
+  
   :root {
     --accent-color: #2563eb;
     --accent-gradient: linear-gradient(45deg, #2563eb, #10b981);
@@ -30,10 +19,17 @@
     --text-dark: #eee;
   }
 
-  /* Dark mode */
-  body.dark {
-    background-color: var(--background-dark);
-    color: var(--text-dark);
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+    padding-left: 40px; /* space for vertical scroll bar */
   }
 
   /* Vertical Scroll Bar Left */
@@ -96,56 +92,44 @@
     z-index: 1000;
     transition: background-color 0.3s, color 0.3s;
   }
-  body.dark nav {
+  nav.dark {
     background: var(--background-dark);
     box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
   }
-
-  nav .logo {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--accent-color);
-  }
-
-  nav ul.nav-links {
+  nav ul {
     list-style: none;
     display: flex;
     gap: 1.5rem;
     margin: 0;
     padding: 0;
   }
-  nav ul.nav-links li a {
+  nav ul li a {
     text-decoration: none;
     font-weight: 600;
     color: var(--text-light);
     transition: color 0.3s;
   }
-  body.dark nav ul.nav-links li a {
+  nav.dark ul li a {
     color: var(--text-dark);
   }
-  nav ul.nav-links li a.active,
-  nav ul.nav-links li a:hover {
+  nav ul li a.active,
+  nav ul li a:hover {
     color: var(--accent-color);
   }
 
-  /* Nav icons container */
   .nav-icons {
     display: flex;
     gap: 1rem;
     align-items: center;
   }
-
-  /* Buttons inside nav */
-  nav button {
+  button {
     background: none;
     border: none;
     cursor: pointer;
     color: var(--text-light);
     transition: color 0.3s;
-    font-size: 1.2rem;
-    padding: 4px;
   }
-  body.dark nav button {
+  nav.dark button {
     color: var(--text-dark);
   }
   button:focus {
@@ -163,9 +147,8 @@
     gap: 6px;
     font-weight: 600;
     color: var(--text-light);
-    cursor: pointer;
   }
-  body.dark .accent-btn {
+  nav.dark .accent-btn {
     color: var(--text-dark);
   }
   .accent-btn svg {
@@ -188,7 +171,7 @@
     width: 180px;
     z-index: 1100;
   }
-  body.dark .accent-menu {
+  nav.dark .accent-menu {
     background: var(--background-dark);
   }
   .accent-circle {
@@ -205,51 +188,6 @@
     border-color: var(--accent-color);
   }
 
-  /* Hamburger menu button (hidden desktop) */
-  .menu-toggle {
-    display: none;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-light);
-  }
-  body.dark .menu-toggle {
-    color: var(--text-dark);
-  }
-
-  /* Responsive: Mobile Nav */
-  @media (max-width: 768px) {
-    nav ul.nav-links {
-      display: none;
-      position: fixed;
-      top: 56px; /* height of nav */
-      left: 40px;
-      right: 0;
-      background: var(--background-light);
-      flex-direction: column;
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      z-index: 1001;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-    body.dark nav ul.nav-links {
-      background: var(--background-dark);
-      box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
-    }
-    nav ul.nav-links.show {
-      display: flex;
-      max-height: 300px; /* enough to show all links */
-    }
-
-    /* Show hamburger button on mobile */
-    .menu-toggle {
-      display: block;
-    }
-  }
-
   /* Hero Section */
   .hero {
     position: relative;
@@ -261,7 +199,6 @@
     color: var(--text-light);
     overflow: hidden;
     padding: 0 1rem;
-    margin-top: 72px; /* push below fixed nav */
   }
   .hero video.bg-video {
     position: absolute;
@@ -296,9 +233,11 @@
     max-width: 600px;
     color: var(--text-light);
   }
-  body.dark .hero p {
+  nav.dark ~ .hero p {
     color: var(--text-dark);
   }
+
+  /* Slogan */
   .hero .slogan {
     margin-top: 1rem;
     font-style: italic;
@@ -348,7 +287,7 @@
     font-size: 1.25rem;
     color: #444;
   }
-  body.dark #what-we-offer p {
+  nav.dark #what-we-offer p {
     color: #ccc;
   }
 
@@ -359,6 +298,40 @@
     font-size: 0.9rem;
     color: #999;
     border-top: 1px solid #eee;
+  }
+  nav.dark footer {
+    color: #777;
+    border-color: #333;
+  }
+
+  /* Dark mode */
+  body.dark {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+  }
+
+  /* Dark mode nav */
+  body.dark nav {
+    background: var(--background-dark);
+    box-shadow: 0 2px 15px rgba(255 255 255 / 0.1);
+  }
+  body.dark nav ul li a {
+    color: var(--text-dark);
+  }
+  body.dark nav ul li a.active,
+  body.dark nav ul li a:hover {
+    color: var(--accent-color);
+  }
+  body.dark button {
+    color: var(--text-dark);
+  }
+
+  /* Dark mode hero */
+  body.dark .hero p {
+    color: var(--text-dark);
+  }
+  body.dark #what-we-offer p {
+    color: #ccc;
   }
   body.dark footer {
     color: #777;
@@ -392,14 +365,16 @@
 </head>
 <body>
 
-  <!-- Background Sci-Fi Sound -->
+  <!-- 🎵 Background Sci-Fi Sound -->
   <audio id="bg-sound" autoplay loop>
     <source src="Resources/morphed-metal-discharged-cinematic-trailer-sound-effects-124763.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
   <!-- Background sound control button -->
-  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound">🔊</button>
+  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound">
+    🔊
+  </button>
 
   <!-- Left Vertical Scroll Bar -->
   <div class="scroll-bar-vertical" aria-label="Page scroll progress" role="progressbar" tabindex="0">
@@ -408,16 +383,15 @@
   </div>
 
   <!-- Navigation -->
-  <nav role="navigation" aria-label="Main navigation" id="main-nav">
-    <div class="logo">True Logic</div>
-    <button id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" class="menu-toggle">&#9776;</button>
-    <ul class="nav-links" id="nav-links">
+  <nav id="main-nav" role="navigation" aria-label="Main navigation">
+    <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#contact">Contact Us</a></li>
     </ul>
     <div class="nav-icons">
+
       <!-- Accent Dropdown -->
       <div class="accent-dropdown">
         <button class="accent-btn" aria-haspopup="true" aria-expanded="false" aria-label="Choose Accent Color" id="accent-btn">
@@ -454,6 +428,7 @@
           <path d="M3 9v6a2 2 0 002 2h4"/>
         </svg>
       </button>
+
     </div>
   </nav>
 
@@ -485,121 +460,97 @@
   const scrollThumb = scrollBar.querySelector('.scroll-thumb');
   const scrollPercentText = scrollBar.querySelector('.scroll-percentage');
 
-  window.addEventListener('scroll', () => {
+  function updateScroll() {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = Math.round((scrollTop / docHeight) * 100);
-    const maxThumbTop = scrollBar.clientHeight - scrollThumb.clientHeight;
-    scrollThumb.style.transform = `translateY(${(scrollPercent / 100) * maxThumbTop}px)`;
-    scrollPercentText.textContent = scrollPercent + '%';
-  });
+    const scrollPercent = docHeight ? (scrollTop / docHeight) * 100 : 0;
+    scrollThumb.style.height = '60px'; // fixed height
+    scrollThumb.style.top = (scrollPercent * (window.innerHeight - 60) / 100) + 'px';
+    scrollPercentText.textContent = Math.round(scrollPercent) + '%';
+  }
+  window.addEventListener('scroll', updateScroll);
+  window.addEventListener('resize', updateScroll);
+  updateScroll();
 
-  // Hamburger toggle for mobile menu
-  const menuToggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
+  // Theme toggle
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+  const nav = document.getElementById('main-nav');
+  const themeIcon = document.getElementById('theme-icon');
+  let darkMode = false;
 
-  menuToggle.addEventListener('click', () => {
-    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-expanded', !expanded);
-    navLinks.classList.toggle('show');
+  themeToggleBtn.addEventListener('click', () => {
+    darkMode = !darkMode;
+    body.classList.toggle('dark', darkMode);
+    nav.classList.toggle('dark', darkMode);
+    themeToggleBtn.setAttribute('aria-pressed', darkMode.toString());
+    if (darkMode) {
+      themeIcon.innerHTML = '<circle cx="12" cy="12" r="5" /><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/>';
+    } else {
+      themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+    }
   });
 
   // Accent color dropdown
   const accentBtn = document.getElementById('accent-btn');
   const accentMenu = document.getElementById('accent-menu');
-
   accentBtn.addEventListener('click', () => {
     const expanded = accentBtn.getAttribute('aria-expanded') === 'true';
     accentBtn.setAttribute('aria-expanded', !expanded);
-    if (!expanded) {
-      accentMenu.style.display = 'flex';
-      accentMenu.focus();
-    } else {
-      accentMenu.style.display = 'none';
-    }
+    accentMenu.style.display = expanded ? 'none' : 'flex';
   });
-
-  // Close accent menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
-      accentBtn.setAttribute('aria-expanded', false);
-      accentMenu.style.display = 'none';
-    }
-  });
-
-  // Change accent color on click or keyboard enter
   accentMenu.querySelectorAll('.accent-circle').forEach(circle => {
     circle.addEventListener('click', () => {
       const color = circle.getAttribute('data-color');
       document.documentElement.style.setProperty('--accent-color', color);
-      // Update accent gradient with the new accent color & green (fixed)
       document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
+      accentMenu.style.display = 'none';
+      accentBtn.setAttribute('aria-expanded', 'false');
+
+      // Change heading colors dynamically
+      document.querySelectorAll('h1, h2').forEach(el => {
+        el.style.background = `linear-gradient(90deg, ${color}, #10b981)`;
+        el.style.webkitBackgroundClip = 'text';
+        el.style.webkitTextFillColor = 'transparent';
+      });
+
+      // Also update scroll bar background gradient
+      document.querySelector('.scroll-bar-vertical').style.background = `linear-gradient(45deg, ${color}, #10b981)`;
     });
-    circle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    circle.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         circle.click();
       }
     });
   });
 
-  // Dark / Light Mode Toggle
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = document.getElementById('theme-icon');
-
-  function setDarkMode(enabled) {
-    if (enabled) {
-      document.body.classList.add('dark');
-      themeToggle.setAttribute('aria-pressed', 'true');
-      // Change icon to sun
-      themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
-    } else {
-      document.body.classList.remove('dark');
-      themeToggle.setAttribute('aria-pressed', 'false');
-      // Change icon to moon
-      themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>`;
-    }
-  }
-
-  themeToggle.addEventListener('click', () => {
-    const isDark = document.body.classList.contains('dark');
-    setDarkMode(!isDark);
-  });
-
-  // On page load, you could detect prefers-color-scheme and set accordingly (optional)
-  if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
-    setDarkMode(true);
-  }
-
-  // Background Sound Toggle
+  // Background sound control
   const bgSound = document.getElementById('bg-sound');
-  const soundToggle = document.getElementById('sound-toggle');
-  let soundOn = true;
+  const soundToggleBtn = document.getElementById('sound-toggle');
+  let isPlaying = true;
 
-  soundToggle.addEventListener('click', () => {
-    if(soundOn){
+  soundToggleBtn.addEventListener('click', () => {
+    if (isPlaying) {
       bgSound.pause();
-      soundToggle.textContent = '🔈';
-      soundToggle.title = 'Unmute Background Sound';
+      soundToggleBtn.textContent = '🔈'; // muted icon
+      soundToggleBtn.setAttribute('aria-label', 'Unmute background sound');
+      soundToggleBtn.setAttribute('title', 'Unmute Background Sound');
     } else {
       bgSound.play();
-      soundToggle.textContent = '🔊';
-      soundToggle.title = 'Mute Background Sound';
+      soundToggleBtn.textContent = '🔊'; // volume icon
+      soundToggleBtn.setAttribute('aria-label', 'Mute background sound');
+      soundToggleBtn.setAttribute('title', 'Mute Background Sound');
     }
-    soundOn = !soundOn;
+    isPlaying = !isPlaying;
   });
 
-  // Learn More button smooth scroll to what-we-offer
-  document.getElementById('btn-learn-more').addEventListener('click', () => {
-    document.getElementById('what-we-offer').scrollIntoView({behavior: 'smooth'});
+  // Accessibility: close accent menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!accentBtn.contains(e.target) && !accentMenu.contains(e.target)) {
+      accentMenu.style.display = 'none';
+      accentBtn.setAttribute('aria-expanded', 'false');
+    }
   });
 </script>
 
