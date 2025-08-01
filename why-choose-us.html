@@ -2,19 +2,10 @@
 <html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6XG386LP1V');
-</script>
-
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>True Logic - Software Solutions</title>
+<title>True Logic - Custom Software Development</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -176,6 +167,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 180px;
+    z-index: 1100;
   }
   nav.dark .accent-menu {
     background: var(--background-dark);
@@ -276,172 +268,25 @@
       0 0 40px var(--accent-color);
   }
 
-  /* Services Section */
-  #services {
-    max-width: 1200px;
-    margin: 3rem auto 6rem;
-    text-align: center;
-    padding: 0 1rem;
-  }
-  #services h2 {
-    font-size: 2.75rem;
-    margin-bottom: 2.5rem;
-    color: var(--accent-color);
-    text-shadow: 0 0 10px var(--accent-color);
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 2rem;
-  }
-
-  .service-card {
-    background: #000;
-    border-radius: 16px;
-    padding: 2rem 1.5rem 2.5rem;
-    color: #eee;
-    position: relative;
-    text-align: center;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow:
-      0 0 8px rgba(0,0,0,0.6);
-  }
-  .service-card:hover {
-    transform: translateY(-8px) scale(1.04);
-    box-shadow:
-      0 0 20px var(--accent-color),
-      0 0 40px var(--accent-color);
-  }
-
-  .service-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 3px;
-    border-radius: 16px;
-    background: linear-gradient(45deg, #2563eb, #10b981, #f59e0b, #ef4444, #8b5cf6);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-    pointer-events: none;
-  }
-  .service-card:hover::before {
-    opacity: 1;
-  }
-
-  .service-card svg {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 1.2rem;
-    stroke: var(--accent-color);
-    transition: transform 0.3s ease;
-  }
-  .service-card:hover svg {
-    transform: scale(1.2);
-  }
-  .service-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.7rem;
-    color: #fff;
-  }
-  .service-card p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    color: #bbb;
-  }
-  .view-btn {
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 25px;
-    background: var(--accent-gradient);
-    box-shadow:
-      0 0 8px var(--accent-color),
-      0 0 20px var(--accent-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  /* About Section */
-  #about {
+  /* What We Offer Section */
+  #what-we-offer {
     max-width: 900px;
-    margin: 0 auto 5rem;
+    margin: 3rem auto 6rem;
     padding: 0 1rem;
     text-align: center;
   }
-  #about h2 {
-    font-size: 2.5rem;
+  #what-we-offer h2 {
+    font-size: 2.75rem;
     margin-bottom: 1rem;
     color: var(--accent-color);
     text-shadow: 0 0 10px var(--accent-color);
   }
-  #about p {
-    font-size: 1.2rem;
+  #what-we-offer p {
+    font-size: 1.25rem;
     color: #444;
   }
-  nav.dark #about p {
+  nav.dark #what-we-offer p {
     color: #ccc;
-  }
-
-  /* Contact Section */
-  #contact {
-    max-width: 600px;
-    margin: 0 auto 5rem;
-    padding: 0 1rem;
-    text-align: center;
-  }
-  #contact h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--accent-color);
-    text-shadow: 0 0 10px var(--accent-color);
-  }
-  form.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  form.contact-form input,
-  form.contact-form textarea {
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 2px solid #ccc;
-    transition: border-color 0.3s;
-    resize: vertical;
-  }
-  form.contact-form input:focus,
-  form.contact-form textarea:focus {
-    border-color: var(--accent-color);
-    outline: none;
-  }
-  form.contact-form button[type="submit"] {
-    background: var(--accent-gradient);
-    border: none;
-    padding: 1rem;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow:
-      0 0 10px var(--accent-color),
-      0 0 25px var(--accent-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  form.contact-form button[type="submit"]:hover {
-    transform: scale(1.05);
-    box-shadow:
-      0 0 20px var(--accent-color),
-      0 0 40px var(--accent-color);
   }
 
   /* Footer */
@@ -483,7 +328,7 @@
   body.dark .hero p {
     color: var(--text-dark);
   }
-  body.dark #about p {
+  body.dark #what-we-offer p {
     color: #ccc;
   }
   body.dark footer {
@@ -495,21 +340,37 @@
   h1, h2, h3 {
     transition: color 0.3s;
   }
+
+  /* Sound toggle button */
+  #sound-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
 </head>
 <body>
 
   <!-- 🎵 Background Sci-Fi Sound -->
   <audio id="bg-sound" autoplay loop>
-    <source src="Resources/morphed-metal-discharged-cinematic-trailer-sound-effects-124763.mp3" type="audio/mpeg" />
+    <source src="Resources/sci-fi-sound-effect-designed-circuits-hum-24-200825.mp3" />
     Your browser does not support the audio element.
   </audio>
 
   <!-- Background sound control button -->
-  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound" 
-          style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
-                 background: var(--accent-color); border: none; border-radius: 50%; 
-                 width: 48px; height: 48px; cursor: pointer; color: white; font-size: 24px;">
+  <button id="sound-toggle" aria-label="Toggle background sound" title="Toggle Background Sound">
     🔊
   </button>
 
@@ -522,11 +383,10 @@
   <!-- Navigation -->
   <nav id="main-nav" role="navigation" aria-label="Main navigation">
     <ul class="nav-links">
-      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about-us.html">About Us</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="contact-us.html">Contact Us</a></li>
-      <li><a href="why-choose-us.html">Why choose us</a></li>
     </ul>
     <div class="nav-icons">
 
@@ -572,160 +432,32 @@
 
   <!-- Hero Section -->
   <section class="hero" id="hero" tabindex="0" aria-label="Introduction">
-    <video autoplay muted loop playsinline class="bg-video" src="Resources/256338.mp4"></video>
+    <video autoplay muted loop playsinline class="bg-video" src=""></video>
     <div class="hero-content">
-      <h1>True <span>Logic</span></h1>
-      <p>Your premier partner for sleek, modern software solutions crafted with precision and passion.</p>
-      <div class="slogan">Innovate. Integrate. Inspire.</div>
-      <button class="btn primary" id="btn-learn-more">Learn More</button>
+      <h1>WHY CHOOSE US</h1>
+      <p>Gives us the opportunity we won't let you down.</p>
+      <div class="slogan">True Logic – Your Vision, Our Code, Endless Possibilities..</div>
+      
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" tabindex="0" aria-label="About True Logic">
-    <h2>About Us</h2>
-    <p>
-      True Logic is a visionary software solutions company focused on delivering minimalistic and modern digital experiences.
-    </p>
+  <!-- What We Offer Section -->
+  <section id="what-we-offer" tabindex="0" aria-label="What We Offer">
+    <h2> </h2>
+    <p><section id="what-we-offer" tabindex="0" aria-label="What We Offer">
+    <h2></h2>
+    <p>At True Logic, we’re more than just a software company – we’re your dedicated partner in building the future of your business. We know that every business has a unique story, unique challenges, and unique dreams. That’s why we’ve designed our services to be as flexible and supportive as possible, giving you options that most companies would never offer.
+
+With us, you decide how much you want to pay (under fair and transparent terms and conditions), because we believe that great software solutions should never be out of reach. To make things even easier, we offer interest-free monthly installments, giving you the breathing room to invest in your success without unnecessary financial stress.
+
+But we don’t just stop at delivering a product. Every 6 months, we check in with all our clients – completely free – to review their projects and business operations. This is our way of ensuring your systems are always evolving, adapting, and staying optimized for maximum success. Your growth is our mission, and we’ll never just leave you on your own after a project is done.
+
+We also stand by our work like no one else does – with a lifetime warranty on all our products (maintenance fees excluded). This means that when you choose True Logic, you’re not just buying software – you’re investing in a lifelong partnership built on trust, reliability, and real results.
+
+We understand that life happens. Businesses face challenges, markets change, and plans shift – but with True Logic, you’ll always have a team that has your back. We’re the company that gives you the most value for your investment while genuinely caring about your success as if it were our own.
+
+Join the True Logic family today. Let us handle the hard work, while you focus on achieving your goals and dreams. Together, we’ll not only reach your milestones – we’ll create a success story that you can be proud of for years to come.</p>
   </section>
-
-  <!-- Services Section -->
-  <section id="services" tabindex="0" aria-label="Our Services">
-    <h2>Our Services</h2>
-    <div class="services-grid">
-
-      <article tabindex="0" class="service-card" data-service="custom-software" role="button" aria-pressed="false" aria-label="Custom Software Development">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <rect x="3" y="4" width="18" height="16" rx="2" ry="2"/>
-          <path d="M8 4v16"/>
-        </svg>
-        <h3>Custom Software Development</h3>
-        <p>Tailored software solutions to meet your unique business needs and workflows.</p>
-        <a href="custom-software-development.html" class="view-btn" aria-label="View more about Custom Software Development">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="mobile-app" role="button" aria-pressed="false" aria-label="Mobile Application Development">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <rect x="7" y="2" width="10" height="20" rx="2" ry="2"/>
-          <line x1="12" y1="18" x2="12" y2="18"/>
-        </svg>
-        <h3>Mobile Application Development</h3>
-        <p>Native and cross-platform apps optimized for user experience and performance.</p>
-        <a href="mobile-application.html" class="view-btn" aria-label="View more about Mobile Application Development">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="web-application" role="button" aria-pressed="false" aria-label="Web Application Development">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M2 12h20"/>
-          <path d="M12 2a15 15 0 0 1 0 20"/>
-        </svg>
-        <h3>Web Application Development</h3>
-        <p>Robust web apps built for scalability, security, and seamless user interactions.</p>
-        <a href="web-application.html" class="view-btn" aria-label="View more about Web Application Development">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="cloud-computing" role="button" aria-pressed="false" aria-label="Cloud Computing Solutions">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M20 17.58A5 5 0 0018 9h-1.26A8 8 0 104 16.25"/>
-          <path d="M16 16h-5"/>
-        </svg>
-        <h3>Cloud Computing Solutions</h3>
-        <p>Scalable and secure cloud infrastructure tailored to your business needs.</p>
-        <a href="cloud-computing.html" class="view-btn" aria-label="View more about Cloud Computing Solutions">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="database-design" role="button" aria-pressed="false" aria-label="Database Design & Management">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <ellipse cx="12" cy="6" rx="8" ry="3"/>
-          <path d="M4 6v12c0 1.5 3.6 3 8 3s8-1.5 8-3V6"/>
-          <path d="M4 12h16"/>
-        </svg>
-        <h3>Database Design & Management</h3>
-        <p>Efficient database architecture and administration for reliable data handling.</p>
-        <a href="database-design.html" class="view-btn" aria-label="View more about Database Design & Management">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="enterprise-software" role="button" aria-pressed="false" aria-label="Enterprise Software Development">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <rect x="3" y="7" width="18" height="14" rx="2" ry="2"/>
-          <path d="M16 3h-8v4h8z"/>
-        </svg>
-        <h3>Enterprise Software Development</h3>
-        <p>Comprehensive solutions designed to streamline enterprise operations.</p>
-        <a href="enterprise-software.html" class="view-btn" aria-label="View more about Enterprise Software Development">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="ux-ui-design" role="button" aria-pressed="false" aria-label="UX/UI Design">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M12 20v-6"/>
-          <circle cx="12" cy="8" r="3"/>
-          <path d="M5 3v18h14V3H5z"/>
-        </svg>
-        <h3>UX/UI Design</h3>
-        <p>User-centric interfaces that deliver intuitive and engaging experiences.</p>
-        <a href="ux-ui-design.html" class="view-btn" aria-label="View more about UX/UI Design">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="software-testing" role="button" aria-pressed="false" aria-label="Software Testing">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <rect x="2" y="7" width="20" height="10" rx="2" ry="2"/>
-          <path d="M9 7v10"/>
-          <path d="M15 7v10"/>
-        </svg>
-        <h3>Software Testing</h3>
-        <p>Comprehensive QA and testing services to ensure reliability and quality.</p>
-        <a href="software-testing.html" class="view-btn" aria-label="View more about Software Testing">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="it-consulting" role="button" aria-pressed="false" aria-label="IT Consulting">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M12 2a10 10 0 1 1 0 20"/>
-          <path d="M12 12l4 4"/>
-          <path d="M12 12l-4 4"/>
-        </svg>
-        <h3>IT Consulting</h3>
-        <p>Expert advice to optimize your IT infrastructure and strategy.</p>
-        <a href="it-consulting.html" class="view-btn" aria-label="View more about IT Consulting">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="embedded-systems" role="button" aria-pressed="false" aria-label="Embedded Systems Software">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-        <h3>Embedded Systems Software</h3>
-        <p>Specialized software for embedded hardware and IoT devices.</p>
-        <a href="embedded-systems.html" class="view-btn" aria-label="View more about Embedded Systems Software">View More</a>
-      </article>
-
-      <article tabindex="0" class="service-card" data-service="machine-learning" role="button" aria-pressed="false" aria-label="Machine Learning & AI Models">
-        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a7.1 7.1 0 0 1-14.8 0"/>
-          <path d="M12 3v3"/>
-          <path d="M17 7l-2.4 2.4"/>
-          <path d="M7 7l2.4 2.4"/>
-        </svg>
-        <h3>Machine Learning & AI Models</h3>
-        <p>Advanced AI algorithms and predictive models tailored for your business.</p>
-        <a href="machine-learning.html" class="view-btn" aria-label="View more about Machine Learning & AI Models">View More</a>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" tabindex="0" aria-label="Contact Us">
-    <h2>Contact Us</h2>
-    <form class="contact-form" action="mailto:armano.international@gmail.com" method="post" enctype="text/plain">
-      <input type="text" name="name" placeholder="Full Name" required aria-required="true" />
-      <input type="email" name="email" placeholder="Email" required aria-required="true" />
-      <textarea name="message" rows="5" placeholder="Message" required aria-required="true"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
   <!-- Footer -->
   <footer>
     &copy; 2025 True Logic - Software Solutions. All rights reserved.
@@ -783,6 +515,16 @@
       document.documentElement.style.setProperty('--accent-gradient', `linear-gradient(45deg, ${color}, #10b981)`);
       accentMenu.style.display = 'none';
       accentBtn.setAttribute('aria-expanded', 'false');
+
+      // Change heading colors dynamically
+      document.querySelectorAll('h1, h2').forEach(el => {
+        el.style.background = `linear-gradient(90deg, ${color}, #10b981)`;
+        el.style.webkitBackgroundClip = 'text';
+        el.style.webkitTextFillColor = 'transparent';
+      });
+
+      // Also update scroll bar background gradient
+      document.querySelector('.scroll-bar-vertical').style.background = `linear-gradient(45deg, ${color}, #10b981)`;
     });
     circle.addEventListener('keydown', e => {
       if(e.key === 'Enter' || e.key === ' ') {
